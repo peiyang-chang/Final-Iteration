@@ -1,15 +1,13 @@
 package edu.baylor.ecs.Panda2;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,14 +17,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-
+import DataBase.Car;
+import DataBase.PaymentList;
+import DataBase.PersonList;
+import MessageFile.NoDate;
 import MessageFile.PaymentError;
-
+ 
 
 public class MakePayment extends JFrame implements ActionListener {
 	/**
@@ -94,11 +94,13 @@ public class MakePayment extends JFrame implements ActionListener {
 		
 		
 		textField = new JTextField(car.getMake() + " " + car.getModel());
+		textField.setEditable(false);
 		textField.setBounds(200, 34, 188, 28);
 		panel.add(textField);
 		textField.setColumns(10);
 		 
 		textField_1 = new JTextField(car.getPrice());
+		textField_1.setEditable(false);
 		textField_1.setBounds(200, 75, 188, 28);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
@@ -106,15 +108,16 @@ public class MakePayment extends JFrame implements ActionListener {
 		try {
 			person.readCSV("PersonList.csv");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		textField_2 = new JTextField(person.getPerson(index).getFristName() + " " + person.getPerson(index).getLastName());
+		textField_2.setEditable(false);
 		textField_2.setBounds(200, 116, 188, 23);
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 		 
 		textField_3 = new JTextField(person.getPerson(index).getPhone());
+		textField_3.setEditable(false);
 		textField_3.setBounds(200, 157, 188, 23);
 		panel.add(textField_3);
 		textField_3.setColumns(10);
@@ -155,19 +158,28 @@ public class MakePayment extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == payButton) {
 			if(c1.isSelected() == true) {
-				frame.dispose();
-				Date selectedDate = (Date) datePicker.getModel().getValue();
-				DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				String date = df.format(selectedDate);
 				
-				try {
-					payment.WriteIntoFile("PaymentInfo.csv", textField.getText(), textField_1.getText(), textField_2.getText(), textField_3.getText(), date);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				
+				if(datePicker.getModel().getValue() == null) {
+					NoDate msg = new NoDate();
+					msg.createGUI();
 				}
-				FinishPayment pay = new FinishPayment();
-				pay.createGUI(); 
+				else {
+					Date selectedDate = (Date) datePicker.getModel().getValue();
+					DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+					String date = df.format(selectedDate);
+					System.out.println(date);
+					try {
+						payment.WriteIntoFile("PaymentInfo.csv", textField.getText(), textField_1.getText(), textField_2.getText(), textField_3.getText(), date);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					frame.dispose();
+					FinishPayment pay = new FinishPayment();
+					pay.createGUI(); 
+				}
 			}
 			else {
 				PaymentError error = new PaymentError();

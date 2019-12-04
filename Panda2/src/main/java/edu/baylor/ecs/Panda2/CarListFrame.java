@@ -16,6 +16,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import DataBase.Car;
+import DataBase.CarFavList;
+import DataBase.CarList;
+import DataBase.PersonList;
 import MessageFile.ContainMessage;
 import MessageFile.LoginPlease;
 import MessageFile.NotSelectedMessage;
@@ -64,6 +68,8 @@ public class CarListFrame extends JFrame implements ActionListener{
      */
     public void createGUI(String loginUsername) throws FileNotFoundException {
     	user = loginUsername;
+    	person.readCSV("PersonList.csv");
+    	index = person.getCurr(loginUsername);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
@@ -157,7 +163,12 @@ public class CarListFrame extends JFrame implements ActionListener{
             homePage.CreateFrame();
         }
         else if(e.getSource() == addButton) {
-        	if(user != "" && index != -1) {
+        	if(user == null || index == -1) {
+        		LoginPlease msg = new LoginPlease();
+    			msg.createGUI();
+        		
+        	}
+        	else {
         		try {
 					person.readCSV("PersonList.csv");
 				} catch (FileNotFoundException e2) {
@@ -196,32 +207,29 @@ public class CarListFrame extends JFrame implements ActionListener{
         			}
             	}
         	}
-        	else {
-        		LoginPlease msg = new LoginPlease();
-    			msg.createGUI();
-        	}
 
         }
         else if(e.getSource() == payButton) {
-        	if(user != "" && index != -1) {
-	        	if(table.getSelectionModel().isSelectionEmpty() == true) {
-	        		NotSelectedMessage msg1 = new NotSelectedMessage();
-	        		msg1.createGUI();
-	        	}
-	        	else {
+        	if(table.getSelectionModel().isSelectionEmpty() == true) {
+        		NotSelectedMessage msg1 = new NotSelectedMessage();
+        		msg1.createGUI();
+        	}
+        	else {
+            	if(user == null || index == -1) {
+            		LoginPlease msg = new LoginPlease();
+        			msg.createGUI();
+
+            	}
+            	else {
 		        	int selectedRow = table.getSelectedRow();
 		        	Car car = myList.getData(selectedRow);
 			        frame.dispose();
 			        MakePayment pay = new MakePayment();
 			        pay.addCar(car); 
 			        pay.createGUI(index);
-	        	}
+            	}
         	}
-        	else {
-        		LoginPlease msg = new LoginPlease();
-    			msg.createGUI();
-        	}
-		}
+    	}
     }
     
     

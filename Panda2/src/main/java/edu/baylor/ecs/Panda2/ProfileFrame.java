@@ -1,18 +1,14 @@
 package edu.baylor.ecs.Panda2;
 
-import java.awt.Image;
+import java.awt.Image; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Vector;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -24,7 +20,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import DataBase.Car;
+import DataBase.CarFavList;
+import DataBase.PersonList;
+import MessageFile.InformationChangeError;
 import MessageFile.NotSelectedMessage;
+import MessageFile.Saved;
 import MessageFile.deleteMessage;
 
 import javax.swing.JScrollPane;
@@ -67,7 +68,6 @@ public class ProfileFrame extends JFrame implements ActionListener{
 	private int index = -1;
 	private String user = "";
 	private JTextField textField1;
-	private HomePage home;
 	
 	public ProfileFrame() {
 		super();
@@ -75,6 +75,7 @@ public class ProfileFrame extends JFrame implements ActionListener{
     /**
      * Create the frame.
      * @param loginUsername 
+     * @param number 
      * @throws FileNotFoundException 
      */
     
@@ -219,7 +220,30 @@ public class ProfileFrame extends JFrame implements ActionListener{
         frame.add(contentPane); 
         
     }
-   
+	public boolean emailCheck(String str) {
+		boolean tester = true;
+		for(int i = 0; i < str.length(); i++) {
+			if(str.charAt(i) == '@') {
+				tester = false;
+			}
+		}
+		if(tester == false) {
+			System.out.println("Here");
+			String[] content = {"",""};
+			String[] split = str.split("@");
+			content[0] = split[0];
+			content[1] = split[1];
+			if(content[0].equalsIgnoreCase("")) {
+				System.out.println("Here");
+				return true;
+			}
+			if(content[1].equalsIgnoreCase("baylor.edu")) {
+				System.out.println("Here");
+				return false;
+			}	
+		}
+		return true;
+	}
 	protected Icon ResizeImage(String picPath2) {
 		ImageIcon image = new ImageIcon(picPath2);
 		Image img = image.getImage();
@@ -308,13 +332,44 @@ public class ProfileFrame extends JFrame implements ActionListener{
         	}
     	}
     	else if(e.getSource() == menuItem1) {
+    		boolean flag = true;
     		try {
     			person.getPerson(index).setFristName(textField.getText());
     			person.getPerson(index).setLastName(textField1.getText());
-    			person.getPerson(index).setPhone(textField_1.getText());
-    			person.getPerson(index).setEmail(textField_2.getText());
-    			person.getPerson(index).setLicense(textField_3.getText());
-				person.save(index);
+    			
+    			if(textField_1.getText().length() != person.getPerson(index).getPhone().length()) {
+    				InformationChangeError msg = new InformationChangeError();
+    				msg.createGUI(1);
+    				flag = false;
+    			}
+    			else {
+    				person.getPerson(index).setPhone(textField_1.getText());
+    			}
+    			
+    			if(emailCheck(textField_2.getText())) {
+    				InformationChangeError msg = new InformationChangeError();
+    				msg.createGUI(2);
+    				flag = false;
+    			}
+    			else {
+    				person.getPerson(index).setEmail(textField_2.getText());
+    			}
+    			
+    			if(textField_3.getText().length() != person.getPerson(index).getLicense().length()) {
+    				InformationChangeError msg = new InformationChangeError();
+    				msg.createGUI(3);
+    				flag = false;
+    			}
+    			else {
+    				person.getPerson(index).setLicense(textField_3.getText());
+    			}
+    			
+				
+				if(flag == true) {
+					Saved save = new Saved();
+					save.createGUI();
+					person.save(index);
+				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

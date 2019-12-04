@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import DataBase.PaymentList;
+
 public class FinishPayment extends JFrame implements ActionListener {
 	/**
 	 * 

@@ -1,10 +1,5 @@
 package edu.baylor.ecs.Panda2;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -13,14 +8,17 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import DataBase.PersonList;
 import MessageFile.LoginPlease;
 
 
 public class HomePage extends JPanel implements ItemListener, ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame = new JFrame("PandaDealerShip");
 	private JPanel contentPanel;
 	private JComboBox Maker;
@@ -108,7 +106,6 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 			e2.printStackTrace();
 		}
 		index = person.getCurr(LoginUsername);
-		System.out.println(index);
 		ProfileButton = new JButton("Profile");
 		ImageIcon img3 = new ImageIcon("profile.jpg");
 		ProfileButton.setIcon(img3);

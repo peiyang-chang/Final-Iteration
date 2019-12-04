@@ -1,4 +1,4 @@
-package edu.baylor.ecs.Panda2;
+package DataBase;
 
 public class PaymentInfo { 
 	private String CarName;

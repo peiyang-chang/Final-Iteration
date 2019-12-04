@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import DataBase.Car;
+import DataBase.CarFavList;
+import DataBase.PersonList;
 import MessageFile.LoginPlease;
 
 import java.awt.event.ActionEvent;
@@ -39,6 +42,8 @@ public class CarInfo2 extends JFrame implements ActionListener{
 	
 	public void createGUI(String loginUsername) throws FileNotFoundException {
 		user = loginUsername;
+		person.readCSV("PersonList.csv");
+		index = person.getCurr(loginUsername);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.setLayout(null);
