@@ -95,6 +95,8 @@ public class FinishPayment extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == BackButton) {
 			frame.dispose();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
 		}
 
 	}

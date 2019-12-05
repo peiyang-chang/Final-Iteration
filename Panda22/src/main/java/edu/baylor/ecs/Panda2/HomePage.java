@@ -216,7 +216,6 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 				closeThis();
 				CarInfo1 Info1 = new CarInfo1();
 				try {
-					//System.out.println(LoginUsername);
 					Info1.createGUI(LoginUsername);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block

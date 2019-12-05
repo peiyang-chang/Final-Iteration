@@ -64,6 +64,7 @@ public class CarListFrame extends JFrame implements ActionListener {
 	private PersonList person = new PersonList();
 	private int index = -1;
 	private String user = "";
+	private Car car = new Car();
 	HomePage homePage = new HomePage();
 
 	public CarListFrame() {
@@ -140,6 +141,21 @@ public class CarListFrame extends JFrame implements ActionListener {
 		contentPane.add(backButton);
 		backButton.addActionListener(this);
 
+		index = person.getCurr(user);
+		filePath = person.getPerson(index).getUsername() + ".csv";
+		try {
+			FavList.readCSV(filePath);
+		} catch (FileNotFoundException e1) {
+			FileWriter fileWriter;
+			try {
+				fileWriter = new FileWriter(filePath, true);
+				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriter.close();
+			} catch (IOException e11) {
+				e11.printStackTrace();
+			}
+
+		}
 		addButton = new JButton("Add");
 		addButton.setBounds(260, 455, 80, 40);
 		contentPane.add(addButton);
@@ -176,7 +192,7 @@ public class CarListFrame extends JFrame implements ActionListener {
 		if (e.getSource() == backButton) {
 			frame.dispose();
 			HomePage homePage = new HomePage();
-			if (user == "") {
+			if (user.equals("")) {
 				homePage.setLoginStatus(false);
 			} else {
 				homePage.setLoginStatus(true);
@@ -194,36 +210,16 @@ public class CarListFrame extends JFrame implements ActionListener {
 				} catch (FileNotFoundException e2) {
 					e2.printStackTrace();
 				}
-				index = person.getCurr(user);
-				filePath = person.getPerson(index).getUsername() + ".csv";
-				try {
-					FavList.readCSV(filePath);
-				} catch (FileNotFoundException e1) {
-					FileWriter fileWriter;
-					try {
-						fileWriter = new FileWriter(filePath, true);
-						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-						bufferedWriter.close();
-					} catch (IOException e11) {
-						e11.printStackTrace();
-					}
-
-				}
 				if (table.getSelectionModel().isSelectionEmpty() == true) {
 					NotSelectedMessage msg1 = new NotSelectedMessage();
 					msg1.createGUI();
-				} else {
+				} 
+				else {
 					int selectedRow = table.getSelectedRow();
-					Car car = new Car();
 					car = myList.getData(selectedRow);
-
-					FavList.add(car);
-					try {
-						FavList.save(filePath);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					FavList.add(car,filePath);
 				}
+
 			}
 
 		} else if (e.getSource() == payButton) {

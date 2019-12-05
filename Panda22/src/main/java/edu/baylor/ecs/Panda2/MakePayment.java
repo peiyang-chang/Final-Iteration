@@ -128,7 +128,6 @@ public class MakePayment extends JFrame implements ActionListener {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println(index);
 		Username = person.getPerson(index).getUsername();
 
 		textField_2 = new JTextField(
@@ -216,7 +215,7 @@ public class MakePayment extends JFrame implements ActionListener {
 
 			frame1.add(yesButton);
 			frame1.add(lbl12);
-			frame1.setSize(800, 650);
+			frame1.setSize(640, 650);
 			frame1.setLocationRelativeTo(null);
 			frame1.setVisible(true);
 		}
@@ -229,7 +228,6 @@ public class MakePayment extends JFrame implements ActionListener {
 					Date selectedDate = (Date) datePicker.getModel().getValue();
 					DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 					String date = df.format(selectedDate);
-					System.out.println(date);
 					try {
 						payment.WriteIntoFile("PaymentInfo.csv", textField.getText(), textField_1.getText(),
 								textField_2.getText(), textField_3.getText(), date);

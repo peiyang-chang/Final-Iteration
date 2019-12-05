@@ -342,7 +342,6 @@ public class RegisterPage extends JFrame{
 				content = split[6];
 				userList.add(content);
 				counter++;
-				System.out.println(content);
 			}
 		} catch (FileNotFoundException e) {
 			// The name of the file to open. 
@@ -383,7 +382,6 @@ public class RegisterPage extends JFrame{
 			} 
 		}
 		for(int i = 0; i < counter; i++) {
-			System.out.println(userList.get(i));
 			if(userList.get(i).equalsIgnoreCase(str)) {
 				return true;
 			}

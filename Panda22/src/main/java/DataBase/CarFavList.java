@@ -76,14 +76,11 @@ public class CarFavList extends AbstractTableModel {
 	 */
 	public int containValue(Car car) {
 		int check = 0;
-		System.out.println(car.getModel() + ": Car ");
 		for (int i = 0; i < carList.size(); i++) {
-			System.out.println(carList.get(i).getModel());
 			if (carList.get(i).equals(car)) {
 				check = 1;
 			}
 		}
-		System.out.println("\n");
 		return check;
 	}
 
@@ -113,15 +110,22 @@ public class CarFavList extends AbstractTableModel {
 	 * @param args car. A Car Object
 	 * @return Nothing
 	 */
-	public void add(Car car) {
+	public void add(Car car, String fileName) {
 		if (containValue(car) == 0) {
 			addMessage msg = new addMessage();
 			msg.createGUI();
 			carList.add(getRowCount(), car);
+			try {
+				save(fileName);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			ContainMessage msg1 = new ContainMessage();
 			msg1.createGUI();
 		}
+
 	}
 
 	/**
@@ -147,7 +151,7 @@ public class CarFavList extends AbstractTableModel {
 		FileWriter fileWriter = new FileWriter(fileName);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		data = conver2Data();
-		for (int i = 0; i < data.length; i++) {
+		for (int i = 0; i < getRowCount(); i++) {
 			for (int j = 0; j < getColumnCount(); j++) {
 				printWriter.print(data[i][j]);
 				if (j + 1 < getColumnCount()) {
