@@ -21,18 +21,14 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JFrame frame = new JFrame("PandaDealerShip");
 	private JPanel contentPanel;
-	private JComboBox Maker;
-	private JComboBox Model;
-	private JComboBox Year;
-	private JComboBox PriceRange;
 	private JButton LoginButton;
 	private JButton RegisterButton;
 	private JButton ProfileButton;
 	private JButton MoreButton;
 	private JButton YouHaveLogin;
-	private Map<Integer, Vector<String>> map = new HashMap<Integer, Vector<String>>();
+	private JButton Logout;
 	private boolean LoginStatus = false;
-	private String LoginUsername;
+	private String LoginUsername = "";
 	private int index = -1;
 	private PersonList person = new PersonList();
 	
@@ -75,28 +71,46 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 			});
 		}else {
 			// 转到login page
-			YouHaveLogin = new JButton("Logined");
+			YouHaveLogin = new JButton("Loginned");
 			YouHaveLogin.setFont(new java.awt.Font("Leelawadee UI", 0, 15));
 			YouHaveLogin.setBounds(600,20,90,30);
 			contentPanel.add(YouHaveLogin);
 		}
 		
 		
-		// 转到Register page
-		RegisterButton = new JButton("Register");
-		RegisterButton.setFont(new java.awt.Font("Leelawadee UI", 0, 15));
-		RegisterButton.setBounds(690,20,90,30);
-		contentPanel.add(RegisterButton);
-		RegisterButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				closeThis();
-				RegisterPage registerPage = new RegisterPage();
-				registerPage.CreateRegister();
-			}
-					
-		});
+		if(!LoginStatus) {
+			// 转到Register page
+			RegisterButton = new JButton("Register");
+			RegisterButton.setFont(new java.awt.Font("Leelawadee UI", 0, 15));
+			RegisterButton.setBounds(690,20,90,30);
+			contentPanel.add(RegisterButton);
+			RegisterButton.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					closeThis();
+					RegisterPage registerPage = new RegisterPage();
+					registerPage.CreateRegister();
+				}
+						
+			});
+		}else {
+			Logout = new JButton("Logout");
+			Logout.setFont(new java.awt.Font("Leelawadee UI", 0, 15));
+			Logout.setBounds(690,20,90,30);
+			contentPanel.add(Logout);
+			Logout.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					closeThis();
+					HomePage homeLogout = new HomePage();
+					homeLogout.CreateFrame();
+				}
+						
+			});
+		}
+		
 		
 		// 转到profile
 		try {
@@ -197,7 +211,6 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 		contentPanel.add(imgButton2);
 		imgButton2.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				closeThis();
@@ -254,16 +267,6 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 		
 	}
 
-	public void itemStateChanged(ItemEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getStateChange() == ItemEvent.SELECTED) {
-            if(e.getSource() == Maker) {
-                int index = Maker.getSelectedIndex();
-                Model.setModel(new DefaultComboBoxModel(map.get(index)));
-            }
-        }  
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -271,6 +274,12 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 	
 	public void closeThis() {
 		frame.dispose();
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

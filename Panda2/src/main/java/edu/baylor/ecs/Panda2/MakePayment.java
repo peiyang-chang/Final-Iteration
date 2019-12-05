@@ -48,6 +48,7 @@ public class MakePayment extends JFrame implements ActionListener {
 	private PaymentList payment = new PaymentList();
 	private int index = -1;
 	private JDatePickerImpl datePicker;
+	private String Username;
 	
 	public MakePayment() {
 		super();
@@ -110,6 +111,9 @@ public class MakePayment extends JFrame implements ActionListener {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println(index);
+		Username = person.getPerson(index).getUsername();
+		
 		textField_2 = new JTextField(person.getPerson(index).getFristName() + " " + person.getPerson(index).getLastName());
 		textField_2.setEditable(false);
 		textField_2.setBounds(200, 116, 188, 23);
@@ -189,6 +193,8 @@ public class MakePayment extends JFrame implements ActionListener {
 		}else if (e.getSource() == backButton) {
 			frame.dispose();
 			HomePage homePage = new HomePage();
+			homePage.setLoginStatus(true);
+			homePage.setLoginUsername(Username);
     		homePage.CreateFrame();
 		}
 		

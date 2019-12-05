@@ -25,7 +25,7 @@ public class LoginError extends JFrame implements ActionListener{
 	public void createGUI(){
 		
 		frame= new JFrame();
-		lbl = new JLabel("Email or Password Incorrect", JLabel.CENTER);
+		lbl = new JLabel("Username or Password Incorrect", JLabel.CENTER);
 		
 		lbl.setBounds(10, 100, 150,50);
 		

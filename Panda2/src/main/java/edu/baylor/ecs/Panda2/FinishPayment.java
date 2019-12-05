@@ -36,7 +36,7 @@ public class FinishPayment extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.setLayout(null);
         
-        BackButton = new JButton("BACK");
+        BackButton = new JButton("EXIT");
         BackButton.setBounds(350, 525, 80, 40);
         contentPane.add(BackButton);
         BackButton.addActionListener(this);
@@ -77,8 +77,6 @@ public class FinishPayment extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == BackButton) {
 			frame.dispose();
-			HomePage homePage = new HomePage();
-    		homePage.CreateFrame();
 		}
 		
 	}
