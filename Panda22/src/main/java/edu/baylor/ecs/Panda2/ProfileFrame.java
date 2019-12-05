@@ -237,23 +237,31 @@ public class ProfileFrame extends JFrame implements ActionListener {
 	 */
 	public boolean emailCheck(String str) {
 		boolean tester = true;
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) == '@') {
-				tester = false;
+		if(str.length() < 3) {
+			return true;
+		}else {
+			for(int i = 0; i < str.length(); i++) {
+				if(str.charAt(i) == '@') {
+					if(i == str.length() - 1) {
+						return true;
+					}
+					tester = false;
+				}
+			}
+			if(tester == false) {
+				String[] content = {"",""};
+				String[] split = str.split("@");
+				content[0] = split[0];
+				content[1] = split[1];
+				if(content[0].equalsIgnoreCase("")) {
+					return true;
+				}
+				if(content[1].equalsIgnoreCase("baylor.edu")) {
+					return false;
+				}	
 			}
 		}
-		if (tester == false) {
-			String[] content = { "", "" };
-			String[] split = str.split("@");
-			content[0] = split[0];
-			content[1] = split[1];
-			if (content[0].equalsIgnoreCase("")) {
-				return true;
-			}
-			if (content[1].equalsIgnoreCase("baylor.edu")) {
-				return false;
-			}
-		}
+		
 		return true;
 	}
 

@@ -21,6 +21,15 @@ import javax.swing.border.EmptyBorder;
 import MessageFile.RegisterError1;
 import MessageFile.RegisterError2;
 
+/**
+ * <h1>RegisterPage</h1> the register page that the user will enter some correct information to register an account
+ *  
+ * <p>
+ *
+ * @author Yanjie Ning
+ * @version 1.7
+ * @since 2019-10-25
+ */
 public class RegisterPage extends JFrame{
 	private JFrame frame = new JFrame("Register");
 	private JPanel contentPanel;
@@ -28,6 +37,12 @@ public class RegisterPage extends JFrame{
 	private JButton ConfirmButton;
 	HomePage homePage = new HomePage();
 	
+	/**
+	 * This class will create a register page frame
+	 * 
+	 * @param args Nothing
+	 * @return Nothing.
+	 */
 	public void CreateRegister() {
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5,5,5,5));
@@ -287,6 +302,10 @@ public class RegisterPage extends JFrame{
 		frame.add(contentPanel);
 		
 	}
+	
+	/**
+	 * This class will close the frame
+	 */
 	public void closeThis() {
 		frame.dispose();
 	}
@@ -299,25 +318,40 @@ public class RegisterPage extends JFrame{
 	 */
 	public boolean emailCheck(String str) {
 		boolean tester = true;
-		for(int i = 0; i < str.length(); i++) {
-			if(str.charAt(i) == '@') {
-				tester = false;
+		if(str.length() < 3) {
+			return true;
+		}else {
+			for(int i = 0; i < str.length(); i++) {
+				if(str.charAt(i) == '@') {
+					if(i == str.length() - 1) {
+						return true;
+					}
+					tester = false;
+				}
+			}
+			if(tester == false) {
+				String[] content = {"",""};
+				String[] split = str.split("@");
+				content[0] = split[0];
+				content[1] = split[1];
+				if(content[0].equalsIgnoreCase("")) {
+					return true;
+				}
+				if(content[1].equalsIgnoreCase("baylor.edu")) {
+					return false;
+				}	
 			}
 		}
-		if(tester == false) {
-			String[] content = {"",""};
-			String[] split = str.split("@");
-			content[0] = split[0];
-			content[1] = split[1];
-			if(content[0].equalsIgnoreCase("")) {
-				return true;
-			}
-			if(content[1].equalsIgnoreCase("baylor.edu")) {
-				return false;
-			}	
-		}
+		
 		return true;
 	}
+	
+	/**
+	 * This class will check the phone number is valid or not
+	 * 
+	 * @param args str. string value of phone number
+	 * @return true if phone number is invalid, false if phone number is valid.
+	 */
 	public boolean phoneCheck(String str) {
 		if(str.length() != 10) {
 			return true;
@@ -330,6 +364,12 @@ public class RegisterPage extends JFrame{
 		return false;
 	}
 	
+	/**
+	 * This class will check the user name is used or not 
+	 * 
+	 * @param args str. string value of user name
+	 * @return true if user name is used, false if user name is not used by anyone.
+	 */
 	public boolean usernameCheck(String str) {
 		int counter = 0;
 		ArrayList<String> userList = new ArrayList<String>();
@@ -389,6 +429,13 @@ public class RegisterPage extends JFrame{
 		return false;
 		
 	}
+	
+	/**
+	 * This class will check the license is valid or not
+	 * 
+	 * @param args str. string value of license
+	 * @return true if license is invalid, false if license is valid.
+	 */
 	public boolean LicenseCheck(String str) {
 		if(str.length() != 8) {
 			return true;

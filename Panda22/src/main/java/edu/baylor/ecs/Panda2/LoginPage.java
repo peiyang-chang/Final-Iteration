@@ -18,7 +18,15 @@ import javax.swing.border.EmptyBorder;
 
 import DataBase.Person;
 import MessageFile.LoginError;
-
+/**
+ * <h1>LoginPage</h1> This is the login frame that user could log in his or her account in this frame
+ *  
+ * <p>
+ *
+ * @author Peiyang Chang
+ * @version 1.7
+ * @since 2019-9-25
+ */
 public class LoginPage extends JFrame{
 	/**
 	 * 
@@ -30,6 +38,18 @@ public class LoginPage extends JFrame{
 	private JButton ConfirmButton;
 	HomePage homePage = new HomePage();
 	
+	/**
+	 * this class create the GUI for log in, it requires the user to enter username and password,
+	 * and the system will verify the username and password, if the username or password is not right or the user
+	 * never registered, it will prints error message. 
+	 * <p>
+	 * after the user login into the system (which press the okButton), change the login status to true, 
+	 * it means that the user has been logged in. So, the user could has his or her information in the future.
+	 * <p>
+	 * the backButton is back to the home page without login
+	 * 
+	 * 
+	 */
 	public void CreateLogin() {
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5,5,5,5));
@@ -176,6 +196,9 @@ public class LoginPage extends JFrame{
 		frame.add(contentPanel);
 	}
 	
+	/**
+	 * close the frame
+	 */
 	public void closeThis() {
 		frame.dispose();
 	}

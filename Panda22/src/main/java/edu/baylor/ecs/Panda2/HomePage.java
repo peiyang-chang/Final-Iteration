@@ -13,7 +13,17 @@ import javax.swing.border.EmptyBorder;
 import DataBase.PersonList;
 import MessageFile.LoginPlease;
 
-
+/**
+ * <h1>HomePage</h1> Basically, the home page contains login button to login your account, register Button to register
+ * an account, profile button to open the profile if you log in, two recommend cars, and a car list in More Car button
+ * 
+ *  
+ * <p>
+ *
+ * @author Yanjie Ning
+ * @version 1.7
+ * @since 2019-9-25
+ */
 public class HomePage extends JPanel implements ItemListener, ActionListener{
 	/**
 	 * 
@@ -32,22 +42,51 @@ public class HomePage extends JPanel implements ItemListener, ActionListener{
 	private int index = -1;
 	private PersonList person = new PersonList();
 	
+	/**
+	 * This is the class return a login user name
+	 * 
+	 * @param args Nothing
+	 * @return String. login user name
+	 */
 	public String getLoginUsername() {
 		return LoginUsername;
 	}
 
+	/**
+	 * This is the class set a login user name
+	 * 
+	 * @param args loginUsername
+	 * @return Nothing
+	 */
 	public void setLoginUsername(String loginUsername) {
 		LoginUsername = loginUsername;
 	}
 	
+	/**
+	 * This is the class return a LoginStatus
+	 * 
+	 * @param args Nothing
+	 * @return boolean. LoginStatus
+	 */
 	public boolean getLoginStatus() {
 		return LoginStatus;
 	}
 
+	/**
+	 * This is the class set a loginStatus
+	 * 
+	 * @param args loginStatus
+	 * @return Nothing
+	 */
 	public void setLoginStatus(boolean loginStatus) {
 		LoginStatus = loginStatus;
 	}
-
+	/**
+	 * This class will create a home page frame
+	 * 
+	 * @param args Nothing
+	 * @return Nothing.
+	 */
 	public void CreateFrame() {
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5,5,5,5));

@@ -1,12 +1,11 @@
 package edu.baylor.ecs.Panda2;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,16 +14,12 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import DataBase.Car;
 import DataBase.CarFavList;
 import DataBase.CarList;
 import DataBase.PersonList;
-import MessageFile.ContainMessage;
 import MessageFile.LoginPlease;
 import MessageFile.NotSelectedMessage;
-import MessageFile.addMessage;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
