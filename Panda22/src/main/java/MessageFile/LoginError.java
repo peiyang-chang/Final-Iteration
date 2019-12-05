@@ -38,12 +38,12 @@ public class LoginError extends JFrame implements ActionListener {
 		lbl.setBounds(10, 100, 150, 50);
 
 		okButton = new JButton("OK");
-		okButton.setBounds(50, 100, 80, 40);
+		okButton.setBounds(110, 100, 80, 40);
 		okButton.addActionListener(this);
 
 		frame.add(okButton);
 		frame.add(lbl);
-		frame.setSize(200, 200);
+		frame.setSize(300, 200);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
