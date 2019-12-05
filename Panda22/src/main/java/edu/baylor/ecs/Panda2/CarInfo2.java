@@ -91,21 +91,23 @@ public class CarInfo2 extends JFrame implements ActionListener {
 		contentPane.add(okButton);
 		okButton.addActionListener((ActionListener) this);
 
-		index = person.getCurr(user);
-		filePath = person.getPerson(index).getUsername() + ".csv";
-		try {
-			FavList.readCSV(filePath);
-		} catch (FileNotFoundException e1) {
-			FileWriter fileWriter;
+		if(!user.equals("") && index != -1) {
+			index = person.getCurr(user);
+			filePath = person.getPerson(index).getUsername() + ".csv";
 			try {
-				fileWriter = new FileWriter(filePath, true);
-				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				bufferedWriter.close();
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				FavList.readCSV(filePath);
+			} catch (FileNotFoundException e1) {
+				FileWriter fileWriter;
+				try {
+					fileWriter = new FileWriter(filePath, true);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.close();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	
 			}
-
 		}
 		FavorButton = new JButton("Favor");
 		FavorButton.setBounds(550, 500, 80, 40);

@@ -135,21 +135,22 @@ public class CarListFrame extends JFrame implements ActionListener {
 		backButton.setBounds(60, 455, 80, 40);
 		contentPane.add(backButton);
 		backButton.addActionListener(this);
-
-		index = person.getCurr(user);
-		filePath = person.getPerson(index).getUsername() + ".csv";
-		try {
-			FavList.readCSV(filePath);
-		} catch (FileNotFoundException e1) {
-			FileWriter fileWriter;
+		if(!user.equals("") && index != -1) {
+			index = person.getCurr(user);
+			filePath = person.getPerson(index).getUsername() + ".csv";
 			try {
-				fileWriter = new FileWriter(filePath, true);
-				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				bufferedWriter.close();
-			} catch (IOException e11) {
-				e11.printStackTrace();
+				FavList.readCSV(filePath);
+			} catch (FileNotFoundException e1) {
+				FileWriter fileWriter;
+				try {
+					fileWriter = new FileWriter(filePath, true);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.close();
+				} catch (IOException e11) {
+					e11.printStackTrace();
+				}
+	
 			}
-
 		}
 		addButton = new JButton("Add");
 		addButton.setBounds(260, 455, 80, 40);
